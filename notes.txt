@@ -1,0 +1,21 @@
+- bootstrap a new project
+composer create-project sulu/skeleton my_sulu_project -n
+
+- docker build
+docker compose up -d --build
+
+- database connection (.env.local)
+DATABASE_URL=mysql://root:pass1234@mysql-my_sulu_project:3306/my_sulu_project_dev
+
+- populate database
+docker compose exec php bin/adminconsole sulu:build dev
+
+- initial user
+user: admin
+pass: admin
+
+- admin
+http://localhost:8090/admin
+
+- frontend
+http://localhost:8090/

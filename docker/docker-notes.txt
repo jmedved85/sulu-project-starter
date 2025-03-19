@@ -1,0 +1,79 @@
+Docker build for DEV
+--------------------
+
+# Build and start the containers
+docker compose up -d --build
+
+# Restart container
+docker restart <container_id>
+
+# Check the status of the containers
+docker compose ps
+
+# Access the application at http://localhost:8090
+
+# Check logs for the Nginx container (optional)
+docker logs nginx-my_sulu_project
+
+# Follow logs in real-time (optional)
+docker logs -f nginx-my_sulu_project
+
+# Stop and remove the containers, networks, and volumes
+docker compose down
+
+# Start the containers without build
+docker compose up -d
+
+- php-my_sulu_project container
+docker exec -it php-my_sulu_project /bin/bash
+cat /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+- nginx-my_sulu_project container
+docker exec -it nginx-my_sulu_project /bin/bash
+
+
+MySQL
+-----
+MYSQL_ROOT_PASSWORD: pass1234
+MYSQL_USER: root
+
+
+XDEBUG
+------
+- ako debugger ne radi:
+
+- docker/php/xdebug.ini
+- u ovom file-u potrebno je pod xdebug.client_host staviti IP adresu lokalnog računala
+xdebug.client_host=192.168.100.27 // intel
+xdebug.client_host=192.168.1.16 // bequiet-pny
+xdebug.client_host=192.168.1.36 // dell
+
+- potražiti ip adresu pod "eno1":
+ip addr show 
+
+- inače treba
+xdebug.client_host=host.docker.internal
+
+- disable firewall for 9003
+sudo ufw status
+sudo ufw allow 9003
+sudo ufw reload
+
+VSCODE
+------
+// Docker Setup
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for Xdebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/var/www/html": "${workspaceFolder}"
+      },
+      "log": true
+    }
+  ]
+}
