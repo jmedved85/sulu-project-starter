@@ -19,3 +19,18 @@ http://localhost:8090/admin
 
 - frontend
 http://localhost:8090/
+
+
+If you want to use other languages than english or german for the administration interface of Sulu you need to configure them in the config/packages/sulu_admin.yaml file:
+
+sulu_core:
+    locales:
+        en: English
+        de: Deutsch
+    translations:
+        - en
+        - de
+
+Available languages are shown on Crowdin. Afterwards the languages have to be downloaded by running the following command:
+
+docker compose exec php bin/console sulu:admin:download-language
