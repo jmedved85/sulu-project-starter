@@ -26,6 +26,8 @@
 # web
 /public/bundles
 /public/uploads
+/public/build
+/public/build/admin
 
 # composer
 /composer.phar
