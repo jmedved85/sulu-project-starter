@@ -2,24 +2,26 @@ services:
   # database
   mysql:
     image: mysql:8.0.39-debian
-    container_name: mysql-my_sulu_project
+    container_name: mysql-sulu_project_starter
     environment:
       MYSQL_ROOT_PASSWORD: pass1234
       # MYSQL_USER: root
     ports:
-      - "3318:3306"
+      - "3308:3306"
     volumes:
-      - mysql-data-sulu_project:/var/lib/mysql
+      - mysql-data-sulu_project_starter:/var/lib/mysql
 
   # php
   php:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
-    container_name: php-my_sulu_project
+    container_name: php-sulu_project_starter
     environment:
       WEB_DOCUMENT_ROOT: /var/www/html/
-      PHP_MEMORY_LIMIT: 1024M
+      PHP_MEMORY_LIMIT: 512M
+    extra_hosts:
+      - host.docker.internal:host-gateway
     volumes:
       - ./:/var/www/html
       - ./public/uploads:/var/www/html/public/uploads
@@ -31,9 +33,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-    container_name: nginx-my_sulu_project
+    container_name: nginx-sulu_project_starter
     ports:
-      - "8090:80"
+      - "8080:80"
     volumes:
       - ./public:/var/www/html/public
       - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
@@ -41,4 +43,4 @@ services:
       - php
 
 volumes:
-  mysql-data-sulu_project:
+  mysql-data-sulu_project_starter:

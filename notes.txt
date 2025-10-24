@@ -1,24 +1,30 @@
 - bootstrap a new project
-composer create-project sulu/skeleton my_sulu_project -n
+composer create-project sulu/skeleton sulu_project_starter -n
 
 - docker build
 docker compose up -d --build
 
 - database connection (.env.local)
-DATABASE_URL=mysql://root:pass1234@mysql-my_sulu_project:3306/my_sulu_project_dev
+DATABASE_URL=mysql://root:pass1234@mysql-sulu_project_starter:3306/sulu_project_starter-dev
+
+- check compatibility
+docker compose exec php composer show sulu/sulu
 
 - populate database
 docker compose exec php bin/adminconsole sulu:build dev
+
+- update assets
+docker compose exec php bin/adminconsole sulu:admin:update-build
 
 - initial user
 user: admin
 pass: admin
 
 - admin
-http://localhost:8090/admin
+http://localhost:8080/admin
 
 - frontend
-http://localhost:8090/
+http://localhost:8080/
 
 
 If you want to use other languages than english or german for the administration interface of Sulu you need to configure them in the config/packages/sulu_admin.yaml file:

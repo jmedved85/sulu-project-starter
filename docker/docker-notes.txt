@@ -10,13 +10,13 @@ docker restart <container_id>
 # Check the status of the containers
 docker compose ps
 
-# Access the application at http://localhost:8090
+# Access the application at http://localhost:8080
 
 # Check logs for the Nginx container (optional)
-docker logs nginx-my_sulu_project
+docker logs nginx-sulu_project_starter
 
 # Follow logs in real-time (optional)
-docker logs -f nginx-my_sulu_project
+docker logs -f nginx-sulu_project_starter
 
 # Stop and remove the containers, networks, and volumes
 docker compose down
@@ -24,12 +24,12 @@ docker compose down
 # Start the containers without build
 docker compose up -d
 
-- php-my_sulu_project container
-docker exec -it php-my_sulu_project /bin/bash
+- php-sulu_project_starter container
+docker exec -it php-sulu_project_starter /bin/bash
 cat /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-- nginx-my_sulu_project container
-docker exec -it nginx-my_sulu_project /bin/bash
+- nginx-sulu_project_starter container
+docker exec -it nginx-sulu_project_starter /bin/bash
 
 
 MySQL
